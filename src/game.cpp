@@ -84,7 +84,7 @@ void Game::render() {
         if (ImGui::BeginMenu("Themes")) {
             for (auto theme : ImGui::GetThemes()) {
                 if (ImGui::MenuItem(theme)) {
-                    ImGui::SetTheme(theme, &ImGui::GetStyle());
+                    ImGui::SetTheme(theme);
                 }
             }
             ImGui::EndMenu();

@@ -1,4 +1,5 @@
 #include "theme.h"
+#include <string>
 
 std::vector<const char *> ImGui::GetThemes() {
     static std::vector<const char *> themes = {"Classic", "Dark", "Light", "Dark Ruda", "Dracula"};
@@ -6,16 +7,19 @@ std::vector<const char *> ImGui::GetThemes() {
 }
 
 void ImGui::SetTheme(const char *theme, ImGuiStyle *dst) {
-    if (strcmp(theme, "Classic") == 0) {
-        ImGui::StyleColorsClassic(dst);
-    } else if (strcmp(theme, "Dark") == 0) {
-        ImGui::StyleColorsDark(dst);
-    } else if (strcmp(theme, "Light") == 0) {
-        ImGui::StyleColorsLight(dst);
-    } else if (strcmp(theme, "Dark Ruda") == 0) {
-        ImGui::StyleColorsDarkRuda(dst);
-    } else if (strcmp(theme, "Dracula") == 0) {
-        ImGui::StyleColorsDracula(dst);
+    ImGuiStyle *style = dst ? dst : &ImGui::GetStyle();
+
+    std::string theme_str(theme);
+    if (theme_str == "Classic") {
+        ImGui::StyleColorsClassic(style);
+    } else if (theme_str == "Dark") {
+        ImGui::StyleColorsDark(style);
+    } else if (theme_str == "Light") {
+        ImGui::StyleColorsLight(style);
+    } else if (theme_str == "Dark Ruda") {
+        ImGui::StyleColorsDarkRuda(style);
+    } else if (theme_str == "Dracula") {
+        ImGui::StyleColorsDracula(style);
     }
 }
 
