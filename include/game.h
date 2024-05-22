@@ -12,7 +12,7 @@ public:
     Game(Game const&) = delete;
     void operator=(Game const&) = delete;
 
-    bool init(const char *, int, int);
+    bool init(const char *title, int width, int height);
     void render();
     void handleEvent();
     void update();

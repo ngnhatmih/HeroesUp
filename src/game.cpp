@@ -1,5 +1,6 @@
 #include "game.h"
 #include "imgui.h"
+#include "theme.h"
 #include "imgui_impl_sdl3.h"
 #include "imgui_impl_sdlrenderer3.h"
 
@@ -40,7 +41,7 @@ bool Game::init(const char *title, int width, int height) {
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
     io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;         // Enable Docking
 
-    ImGui::StyleColorsClassic();
+    ImGui::StyleColorsDracula();
 
     ImGui_ImplSDL3_InitForSDLRenderer(window, renderer);
     ImGui_ImplSDLRenderer3_Init(renderer);
@@ -75,6 +76,21 @@ void Game::render() {
 
     if (demo_window) {
         ImGui::ShowDemoWindow(&demo_window);
+    }
+
+    {
+        ImGui::Begin("test", 0, ImGuiWindowFlags_MenuBar);
+        ImGui::BeginMenuBar();
+        if (ImGui::BeginMenu("Themes")) {
+            for (auto theme : ImGui::GetThemes()) {
+                if (ImGui::MenuItem(theme)) {
+                    ImGui::SetTheme(theme, &ImGui::GetStyle());
+                }
+            }
+            ImGui::EndMenu();
+        }
+        ImGui::EndMenuBar();
+        ImGui::End();
     }
 
     ImGui::Render();

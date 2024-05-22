@@ -9,6 +9,7 @@ file(COPY assets DESTINATION ${CMAKE_BINARY_DIR})
 set (SOURCE_FILES 
     src/main.cpp
     src/game.cpp
+    src/theme.cpp
 )
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 
