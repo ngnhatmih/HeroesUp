@@ -1,11 +1,10 @@
 #include "game.h"
-#include "imgui.h"
 #include "theme.h"
 #include "imgui_impl_sdl3.h"
 #include "imgui_impl_sdlrenderer3.h"
 
 Game::~Game() {
-    
+    delete current_state;
 }
 
 bool Game::init(const char *title, int width, int height) {
@@ -32,7 +31,6 @@ bool Game::init(const char *title, int width, int height) {
     SDL_Log("Successfully created renderer");
 
     running = true;
-    demo_window = true;
     SDL_ShowWindow(window);
 
     IMGUI_CHECKVERSION();
@@ -45,6 +43,9 @@ bool Game::init(const char *title, int width, int height) {
 
     ImGui_ImplSDL3_InitForSDLRenderer(window, renderer);
     ImGui_ImplSDLRenderer3_Init(renderer);
+
+    current_state = new ImGuiTest();
+    current_state->onEnter();
 
     return true;
 }
@@ -72,26 +73,8 @@ void Game::render() {
     ImGui::NewFrame();
 
     SDL_RenderClear(renderer);
-    SDL_SetRenderDrawColor(renderer, 255,255,255,255);
-
-    if (demo_window) {
-        ImGui::ShowDemoWindow(&demo_window);
-    }
-
-    {
-        ImGui::Begin("test", 0, ImGuiWindowFlags_MenuBar);
-        ImGui::BeginMenuBar();
-        if (ImGui::BeginMenu("Themes")) {
-            for (auto theme : ImGui::GetThemes()) {
-                if (ImGui::MenuItem(theme)) {
-                    ImGui::SetTheme(theme);
-                }
-            }
-            ImGui::EndMenu();
-        }
-        ImGui::EndMenuBar();
-        ImGui::End();
-    }
+    
+    current_state->render();
 
     ImGui::Render();
     ImGui_ImplSDLRenderer3_RenderDrawData(ImGui::GetDrawData(), renderer);
@@ -100,7 +83,7 @@ void Game::render() {
 }
 
 void Game::update() {
-
+    current_state->update();
 }
 
 void Game::quit() {

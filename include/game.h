@@ -1,6 +1,8 @@
 #ifndef GAME_H
 #define GAME_H
 #include <SDL3/SDL.h>
+#include "imgui.h"
+#include "imgui_test.h"
 
 class Game {
 public:
@@ -27,9 +29,10 @@ private:
     Game() {}
 
     bool running;
-    bool demo_window;
     SDL_Window *window;
     SDL_Renderer *renderer;
+
+    State *current_state;
 };
 
 #endif /* GAME_H */

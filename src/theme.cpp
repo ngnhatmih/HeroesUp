@@ -9,7 +9,7 @@ std::vector<const char *> ImGui::GetThemes() {
 void ImGui::SetTheme(const char *theme, ImGuiStyle *dst) {
     ImGuiStyle *style = dst ? dst : &ImGui::GetStyle();
 
-    std::string theme_str(theme);
+    std::string_view theme_str(theme);
     if (theme_str == "Classic") {
         ImGui::StyleColorsClassic(style);
     } else if (theme_str == "Dark") {
